@@ -1,0 +1,75 @@
+from collections import defaultdict,deque
+class Solution:
+    def __generate_adj_list(self,wordList):
+        adj = defaultdict(list)
+        
+        for w in wordList:
+            for i in range(len(w)):
+                adj[w[:i]+'*'+w[i+1:]].append(w)
+        return adj
+        
+    
+    def bfs(self,adj,beginWord,endWord):
+        
+        q = deque([(beginWord,1)])
+        visited = set()
+        
+        while len(q)>0:
+            w,dist = q.popleft()
+            visited.add(w)
+            
+            for i in range(len(w)):
+                
+                for neigh in adj[w[:i]+'*'+w[i+1:]]:
+                    if neigh == endWord:
+                        return dist+1
+                    if neigh not in visited:
+                        q.append((neigh,dist+1))
+                        from collections import defaultdict,deque
+class Solution:
+    def __generate_adj_list(self,wordList):
+        adj = defaultdict(list)
+        
+        for w in wordList:
+            for i in range(len(w)):
+                adj[w[:i]+'*'+w[i+1:]].append(w)
+        return adj
+        
+    
+    def bfs(self,adj,beginWord,endWord):
+        
+        q = deque([(beginWord,1)])
+        visited = set()
+        
+        while len(q)>0:
+            w,dist = q.popleft()
+            visited.add(w)
+            
+            for i in range(len(w)):
+                
+                for neigh in adj[w[:i]+'*'+w[i+1:]]:
+                    if neigh == endWord:
+                        return dist+1
+                    if neigh not in visited:
+                        q.append((neigh,dist+1))
+                        visited.add(neigh)
+        return  0        
+    
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        
+        if endWord not in wordList:
+            return 0
+        
+        adj = self.__generate_adj_list(wordList+[beginWord])
+        
+        return self.bfs(adj,beginWord,endWord)
+        return  0        
+    
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        
+        if endWord not in wordList:
+            return 0
+        
+        adj = self.__generate_adj_list(wordList+[beginWord])
+        
+        return self.bfs(adj,beginWord,endWord)
